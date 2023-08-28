@@ -1,5 +1,7 @@
 plugins {
-    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
 }
 
 group = 'hexlet.code'
@@ -9,9 +11,25 @@ repositories {
     mavenCentral()
 }
 
+compileJava {
+    options.release.set(19)
+}
+
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+application {
+    mainClass = 'hexlet.code.App'
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = false
+        html.required = false
+    }
 }
 
 test {
