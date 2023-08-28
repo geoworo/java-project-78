@@ -29,24 +29,26 @@ public class StringSchema {
     }
 
     public boolean isValid(Object obj) {
-        if (obj instanceof String) {
-            String string = obj.toString();
-            if (this.required && (string.isEmpty())) {
-                return false;
-            }
-            for (var length : this.minLength) {
-                if (string.length() < length) {
-                    return false;
-                }
-            }
-            for (var neededString : this.contains) {
-                if (!string.toLowerCase().contains(neededString.toLowerCase())) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
+        if (!(obj instanceof String)) {
             return false;
         }
+
+        String string = obj.toString();
+        if (this.required && (string.isEmpty())) {
+            return false;
+        }
+
+        for (var length : this.minLength) {
+            if (string.length() < length) {
+                return false;
+            }
+        }
+        for (var neededString : this.contains) {
+            if (!string.toLowerCase().contains(neededString.toLowerCase())) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
