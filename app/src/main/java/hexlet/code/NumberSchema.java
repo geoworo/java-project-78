@@ -39,9 +39,7 @@ public class NumberSchema extends BaseSchema {
         }
 
         for (var key: this.range.keySet()) {
-            if (number >= key && number <= this.range.get(key)) {
-                return true;
-            } else {
+            if (!(number >= key && number <= this.range.get(key))) {
                 return false;
             }
         }
