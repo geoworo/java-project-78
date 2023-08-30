@@ -17,23 +17,23 @@ public class MapSchema extends BaseSchema {
         this.size = sizeRequirement;
     }
 
-    public boolean isValid(Object obj) {
+    public boolean isValidRequired(Object obj) {
         if (obj == null) {
             return !(this.getRequired());
-        }
-
-        if (obj instanceof Map<?, ?>) {
-            Map<?, ?> map = (Map<?, ?>) obj;
-            if (sizeRestricted) {
-                int num = 0;
-                for (var entry: map.entrySet()) {
-                    num++;
-                }
-                return num == this.size;
-            }
+        } else {
             return true;
         }
+    }
 
-        return false;
+    public boolean isValidSize(Object obj) {
+        if (obj instanceof Map<?, ?>) {
+            Map<?, ?> map = (Map<?, ?>) obj;
+            return map.size() == size;
+        }
+        return true;
+    }
+
+    public boolean isValid(Object obj) {
+        return isValidSize(obj) && isValidRequired(obj);
     }
 }

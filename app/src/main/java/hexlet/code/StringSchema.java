@@ -22,28 +22,33 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
-    @Override
-    public boolean isValid(Object obj) {
-        if (!(obj instanceof String)) {
-            return false;
-        }
+    public boolean isValidRequired(Object obj) {
+        return !(this.getRequired() && (obj.toString().isEmpty() || obj == null));
+    }
 
-        if (this.getRequired() && (obj.toString().isEmpty() || obj == null)) {
-            return false;
-        }
-
+    public boolean isValidLength(Object obj) {
         String string = obj.toString();
         for (var length : this.minLength) {
             if (string.length() < length) {
                 return false;
             }
         }
+        return true;
+    }
+
+    public boolean isValidContains(Object obj){
+        String string = obj.toString();
         for (var neededString : this.contains) {
             if (!string.toLowerCase().contains(neededString.toLowerCase())) {
                 return false;
             }
         }
-
         return true;
+    }
+
+    @Override
+    public boolean isValid(Object obj) {
+        return (obj instanceof String && this.isValidContains(obj) &&
+                this.isValidLength(obj) && this.isValidRequired(obj));
     }
 }

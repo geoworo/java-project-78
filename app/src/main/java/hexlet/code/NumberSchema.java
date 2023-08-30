@@ -22,27 +22,42 @@ public class NumberSchema extends BaseSchema {
         this.range.put(lowest, highest);
     }
 
-    @Override
-    public boolean isValid(Object obj) {
+    public boolean isValidRequired(Object obj) {
         if (obj == null) {
             return !this.getRequired();
+        } else {
+            return true;
         }
+    }
 
+    public boolean isValidPositive(Object obj) {
+        int num = (int) obj;
+        if (positive) {
+            return num >= 0;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isValidInRange(Object obj) {
         if (!(obj instanceof Integer)) {
             return false;
         }
-
-        int number = (int) obj;
-
-        if (positive && number < 0) {
-            return false;
-        }
-
+        int num = (int) obj;
         for (var key: this.range.keySet()) {
-            if (!(number >= key && number <= this.range.get(key))) {
+            if (!(num >= key && num <= this.range.get(key))) {
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean isValid(Object obj) {
+        if (obj == null) {
+            return isValidRequired(obj);
+        } else {
+            return obj instanceof Integer && isValidInRange(obj) && isValidPositive(obj);
+        }
     }
 }
