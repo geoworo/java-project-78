@@ -36,7 +36,7 @@ public class StringSchema extends BaseSchema {
         return true;
     }
 
-    public boolean isValidContains(Object obj){
+    public boolean isValidContains(Object obj) {
         String string = obj.toString();
         for (var neededString : this.contains) {
             if (!string.toLowerCase().contains(neededString.toLowerCase())) {
@@ -48,7 +48,7 @@ public class StringSchema extends BaseSchema {
 
     @Override
     public boolean isValid(Object obj) {
-        return (obj instanceof String && this.isValidContains(obj) &&
-                this.isValidLength(obj) && this.isValidRequired(obj));
+        return (obj instanceof String && this.isValidContains(obj)
+                && this.isValidLength(obj) && this.isValidRequired(obj));
     }
 }
