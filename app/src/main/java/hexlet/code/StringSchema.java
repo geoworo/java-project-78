@@ -13,8 +13,9 @@ public class StringSchema extends BaseSchema {
         contains = new ArrayList<>();
     }
 
-    public void minLength(int addedMinLength) {
+    public StringSchema minLength(int addedMinLength) {
         this.minLength.add(addedMinLength);
+        return this;
     }
 
     public StringSchema contains(String addedRequiredString) {
@@ -22,11 +23,11 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
-    public boolean isValidRequired(Object obj) {
+    private boolean isValidRequired(Object obj) {
         return !(this.getRequired() && (obj.toString().isEmpty() || obj == null));
     }
 
-    public boolean isValidLength(Object obj) {
+    private boolean isValidLength(Object obj) {
         String string = obj.toString();
         for (var length : this.minLength) {
             if (string.length() < length) {
@@ -36,7 +37,7 @@ public class StringSchema extends BaseSchema {
         return true;
     }
 
-    public boolean isValidContains(Object obj) {
+    private boolean isValidContains(Object obj) {
         String string = obj.toString();
         for (var neededString : this.contains) {
             if (!string.toLowerCase().contains(neededString.toLowerCase())) {

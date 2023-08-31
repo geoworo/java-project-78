@@ -18,11 +18,12 @@ public class NumberSchema extends BaseSchema {
         return this;
     }
 
-    public void range(int lowest, int highest) {
+    public NumberSchema range(int lowest, int highest) {
         this.range.put(lowest, highest);
+        return this;
     }
 
-    public boolean isValidRequired(Object obj) {
+    private boolean isValidRequired(Object obj) {
         if (obj == null) {
             return !this.getRequired();
         } else {
@@ -30,7 +31,7 @@ public class NumberSchema extends BaseSchema {
         }
     }
 
-    public boolean isValidPositive(Object obj) {
+    private boolean isValidPositive(Object obj) {
         int num = (int) obj;
         if (positive) {
             return num >= 0;
@@ -39,7 +40,7 @@ public class NumberSchema extends BaseSchema {
         }
     }
 
-    public boolean isValidInRange(Object obj) {
+    private boolean isValidInRange(Object obj) {
         if (!(obj instanceof Integer)) {
             return false;
         }

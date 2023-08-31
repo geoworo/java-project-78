@@ -7,8 +7,9 @@ public abstract class BaseSchema {
         this.required = false;
     }
 
-    public void required() {
+    public BaseSchema required() {
         this.required = true;
+        return this;
     }
 
     public boolean getRequired() {
