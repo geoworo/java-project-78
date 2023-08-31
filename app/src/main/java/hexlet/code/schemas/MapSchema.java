@@ -21,7 +21,7 @@ public class MapSchema extends BaseSchema {
         return this;
     }
 
-    public MapSchema sizeOf(int sizeRequirement) {
+    public MapSchema sizeof(int sizeRequirement) {
         this.sizeRestricted = true;
         this.size = sizeRequirement;
         return this;

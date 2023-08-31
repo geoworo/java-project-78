@@ -23,7 +23,7 @@ public class MapSchemaTest {
         assertTrue(schema.isValid(data));
         data.put("one", "two");
 
-        schema.sizeOf(2);
+        schema.sizeof(2);
 
         assertFalse(schema.isValid(data));
         data.put("three", "four");
