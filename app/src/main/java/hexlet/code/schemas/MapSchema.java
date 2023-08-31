@@ -4,15 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapSchema extends BaseSchema {
+    private boolean required;
     private boolean sizeRestricted;
     private int size;
     private Map<String, BaseSchema> schemas;
 
     public MapSchema() {
-        super();
+        this.required = false;
         this.sizeRestricted = false;
         this.size = 0;
         this.schemas = new HashMap<>();
+    }
+
+    public MapSchema required() {
+        this.required = true;
+        return this;
     }
 
     public MapSchema sizeOf(int sizeRequirement) {
@@ -28,7 +34,7 @@ public class MapSchema extends BaseSchema {
 
     private boolean isValidRequired(Object obj) {
         if (obj == null) {
-            return !(this.getRequired());
+            return !(this.required);
         } else {
             return true;
         }

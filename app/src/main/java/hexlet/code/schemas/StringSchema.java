@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StringSchema extends BaseSchema {
+    private boolean required;
     private List<Integer> minLength;
     private List<String> contains;
 
     public StringSchema() {
-        super();
-        minLength = new ArrayList<>();
-        contains = new ArrayList<>();
+        this.required = false;
+        this.minLength = new ArrayList<>();
+        this.contains = new ArrayList<>();
+    }
+
+    public StringSchema required() {
+        this.required = true;
+        return this;
     }
 
     public StringSchema minLength(int addedMinLength) {
@@ -24,7 +30,7 @@ public class StringSchema extends BaseSchema {
     }
 
     private boolean isValidRequired(Object obj) {
-        return !(this.getRequired() && (obj.toString().isEmpty() || obj == null));
+        return !(this.required && (obj.toString().isEmpty() || obj == null));
     }
 
     private boolean isValidLength(Object obj) {

@@ -4,15 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NumberSchema extends BaseSchema {
+    private boolean required;
     private boolean positive;
     private Map<Integer, Integer> range;
 
     public NumberSchema() {
-        super();
+        this.required = false;
         this.positive = false;
         this.range = new HashMap<>();
     }
 
+    public NumberSchema required() {
+        this.required = true;
+        return this;
+    }
     public NumberSchema positive() {
         this.positive = true;
         return this;
@@ -25,7 +30,7 @@ public class NumberSchema extends BaseSchema {
 
     private boolean isValidRequired(Object obj) {
         if (obj == null) {
-            return !this.getRequired();
+            return !this.required;
         } else {
             return true;
         }
