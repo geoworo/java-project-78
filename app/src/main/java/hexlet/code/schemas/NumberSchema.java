@@ -39,16 +39,13 @@ public class NumberSchema extends BaseSchema {
     private boolean isValidPositive(Object obj) {
         int num = (int) obj;
         if (positive) {
-            return num >= 0;
+            return num > 0;
         } else {
             return true;
         }
     }
 
     private boolean isValidInRange(Object obj) {
-        if (!(obj instanceof Integer)) {
-            return false;
-        }
         int num = (int) obj;
         for (var key: this.range.keySet()) {
             if (!(num >= key && num <= this.range.get(key))) {
