@@ -11,13 +11,13 @@ public abstract class BaseSchema {
         this.predicates = new ArrayList<>();
     }
 
-    public void addPredicate(Predicate predicate) {
+    public final void addPredicate(Predicate predicate) {
         this.predicates.add(predicate);
     }
 
     public abstract BaseSchema required();
 
-    public boolean isValid(Object obj) {
+    public final boolean isValid(Object obj) {
         for (Predicate predicate: this.predicates) {
             if (!predicate.test(obj)) {
                 return false;
