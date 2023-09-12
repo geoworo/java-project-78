@@ -2,6 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public final class NumberSchema extends BaseSchema {
     private boolean required;
@@ -14,53 +15,24 @@ public final class NumberSchema extends BaseSchema {
         this.range = new HashMap<>();
     }
 
+    @Override
     public NumberSchema required() {
         this.required = true;
+        Predicate<Object> predicate = o -> !(o == null) && (o instanceof Integer);
+        this.addPredicate(predicate);
         return this;
     }
     public NumberSchema positive() {
         this.positive = true;
+        Predicate<Object> predicate = o -> (o == null) || !(o instanceof Integer) || ((int) o > 0);
+        this.addPredicate(predicate);
         return this;
     }
 
     public NumberSchema range(int lowest, int highest) {
         this.range.put(lowest, highest);
+        Predicate<Object> predicate = o -> ((int) o >= lowest) && ((int) o <= highest);
+        this.addPredicate(predicate);
         return this;
-    }
-
-    private boolean isValidRequired(Object obj) {
-        if (obj == null) {
-            return !this.required;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean isValidPositive(Object obj) {
-        int num = (int) obj;
-        if (positive) {
-            return num > 0;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean isValidInRange(Object obj) {
-        int num = (int) obj;
-        for (var key: this.range.keySet()) {
-            if (!(num >= key && num <= this.range.get(key))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean isValid(Object obj) {
-        if (obj == null) {
-            return isValidRequired(obj);
-        } else {
-            return obj instanceof Integer && isValidInRange(obj) && isValidPositive(obj);
-        }
     }
 }

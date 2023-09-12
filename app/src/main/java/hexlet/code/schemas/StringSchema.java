@@ -15,6 +15,7 @@ public final class StringSchema extends BaseSchema {
         this.contains = new ArrayList<>();
     }
 
+    @Override
     public StringSchema required() {
         this.required = true;
         Predicate<Object> predicate = o -> !(o == null) && !(o.toString().isEmpty()) && (o instanceof String);
