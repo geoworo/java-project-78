@@ -5,29 +5,14 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
-    private boolean required;
-    private boolean sizeRestricted;
-    private int size;
     private Map<String, BaseSchema> schemas;
 
     public MapSchema() {
-        this.required = false;
-        this.sizeRestricted = false;
-        this.size = 0;
+        super();
         this.schemas = new HashMap<>();
     }
 
-    @Override
-    public MapSchema required() {
-        this.required = true;
-        Predicate<Object> predicate = o -> (o instanceof Map<?, ?>) && !(o == null);
-        this.addPredicate(predicate);
-        return this;
-    }
-
     public MapSchema sizeof(int sizeRequirement) {
-        this.sizeRestricted = true;
-        this.size = sizeRequirement;
         Predicate<Object> predicate = o -> {
             Map<Object, Object> map = (Map<Object, Object>) o;
             return map.size() == sizeRequirement;
