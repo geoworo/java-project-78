@@ -7,11 +7,7 @@ public final class StringSchema extends BaseSchema {
     public StringSchema() {
         super();
         Predicate<Object> predicate = o -> {
-            if (o instanceof String && !(o.equals(""))) {
-                return true;
-            } else {
-                return false;
-            }
+            return o instanceof String && !(o.equals(""));
         };
         this.addPredicate("required", predicate);
     }

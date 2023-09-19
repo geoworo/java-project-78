@@ -7,11 +7,7 @@ public final class NumberSchema extends BaseSchema {
     public NumberSchema() {
         super();
         Predicate<Object> predicate = o -> {
-            if (o instanceof Integer) {
-                return true;
-            } else {
-                return false;
-            }
+            return o instanceof Integer;
         };
         this.addPredicate("required", predicate);
     }
