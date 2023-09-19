@@ -6,9 +6,7 @@ public final class StringSchema extends BaseSchema {
 
     public StringSchema() {
         super();
-        Predicate<Object> predicate = o -> {
-            return o instanceof String && !(o.equals(""));
-        };
+        Predicate<Object> predicate = o -> !(o == null) && o instanceof String && !(o.equals(""));
         this.addPredicate("required", predicate);
     }
 
@@ -20,10 +18,8 @@ public final class StringSchema extends BaseSchema {
 
     public StringSchema minLength(int addedMinLength) {
         Predicate<Object> predicate = o -> {
-            if (this.toString().length() < addedMinLength) {
-                return false;
-            }
-            return true;
+            String string = o.toString();
+            return string.length() >= addedMinLength;
         };
         this.addPredicate("minLength", predicate);
         return this;

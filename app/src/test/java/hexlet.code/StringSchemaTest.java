@@ -22,6 +22,10 @@ public class StringSchemaTest {
         assertFalse(sch.isValid(2));
         assertTrue(sch.isValid(testcase1));
 
+        assertFalse(sch.minLength(4).isValid("st"));
+        assertTrue(sch.isValid("stri"));
+        assertTrue(sch.isValid("string"));
+
         assertTrue(sch.contains("One").isValid(testcase1));
         assertTrue(sch.contains("two").isValid(testcase2));
         assertTrue(sch.contains("four").isValid(testcase2));
