@@ -1,21 +1,19 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema {
     private boolean required;
-    private List<Predicate> predicates;
+    private LinkedHashMap<String, Predicate> predicates;
 
     public BaseSchema() {
         this.required = false;
-        this.predicates = new ArrayList<>();
+        this.predicates = new LinkedHashMap<>();
     }
 
-    public final void addPredicate(Predicate predicate) {
-        this.predicates.add(predicate);
+    public final void addPredicate(String name, Predicate predicate) {
+        this.predicates.put(name, predicate);
     }
 
     public BaseSchema required() {
@@ -24,21 +22,15 @@ public abstract class BaseSchema {
     }
 
     public final boolean isValid(Object obj) {
-        if (required) {
-            if (obj == null || obj.toString().isEmpty()) {
-                return false;
-            }
-            if (this instanceof MapSchema && !(obj instanceof Map<?,?>)) {
-                return false;
-            } else if (this instanceof NumberSchema && !(obj instanceof Integer)) {
-                return false;
-            } else if (this instanceof StringSchema && !(obj instanceof String)) {
-                return false;
-            }
-        }
-        for (Predicate predicate: this.predicates) {
-            if (!predicate.test(obj)) {
-                return false;
+        for (var key: predicates.keySet()) {
+            if ((key.equals("required"))) {
+                if (this.required && !(predicates.get(key).test(obj))) {
+                    return false;
+                }
+            } else {
+                if (!(predicates.get(key)).test(obj)) {
+                    return false;
+                }
             }
         }
         return true;

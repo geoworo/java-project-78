@@ -10,6 +10,8 @@ public final class MapSchema extends BaseSchema {
     public MapSchema() {
         super();
         this.schemas = new HashMap<>();
+        Predicate<Object> predicate = o -> o instanceof Map<?, ?>;
+        this.addPredicate("required", predicate);
     }
 
     public MapSchema sizeof(int sizeRequirement) {
@@ -17,7 +19,7 @@ public final class MapSchema extends BaseSchema {
             Map<Object, Object> map = (Map<Object, Object>) o;
             return map.size() == sizeRequirement;
         };
-        this.addPredicate(predicate);
+        this.addPredicate("sizeof", predicate);
         return this;
     }
 
@@ -35,7 +37,7 @@ public final class MapSchema extends BaseSchema {
             }
             return true;
         };
-        this.addPredicate(predicate);
+        this.addPredicate("shape", predicate);
         return this;
     }
 }
