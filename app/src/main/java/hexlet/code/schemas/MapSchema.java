@@ -13,6 +13,11 @@ public final class MapSchema extends BaseSchema {
         Predicate<Object> predicate = o -> o instanceof Map<?, ?>;
         this.addPredicate("required", predicate);
     }
+    @Override
+    public MapSchema required() {
+        this.required = true;
+        return this;
+    }
 
     public MapSchema sizeof(int sizeRequirement) {
         Predicate<Object> predicate = o -> {

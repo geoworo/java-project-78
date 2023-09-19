@@ -12,6 +12,12 @@ public final class NumberSchema extends BaseSchema {
         this.addPredicate("required", predicate);
     }
 
+    @Override
+    public NumberSchema required() {
+        this.required = true;
+        return this;
+    }
+
     public NumberSchema positive() {
         Predicate<Object> predicate = o -> (o == null) || !(o instanceof Integer) || ((int) o > 0);
         this.addPredicate("positive", predicate);

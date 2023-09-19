@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema {
-    private boolean required;
+    protected boolean required;
     private LinkedHashMap<String, Predicate> predicates;
 
     public BaseSchema() {
@@ -16,10 +16,7 @@ public abstract class BaseSchema {
         this.predicates.put(name, predicate);
     }
 
-    public BaseSchema required() {
-        this.required = true;
-        return this;
-    }
+    public abstract BaseSchema required();
 
     public final boolean isValid(Object obj) {
         for (var key: predicates.keySet()) {

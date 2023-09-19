@@ -12,6 +12,12 @@ public final class StringSchema extends BaseSchema {
         this.addPredicate("required", predicate);
     }
 
+    @Override
+    public StringSchema required() {
+        this.required = true;
+        return this;
+    }
+
     public StringSchema minLength(int addedMinLength) {
         Predicate<Object> predicate = o -> {
             if (this.toString().length() < addedMinLength) {
