@@ -13,9 +13,8 @@ public class NumberSchemaTest {
         NumberSchema schema = v.number();
 
         assertTrue(schema.isValid(null));
-        assertTrue(schema.positive().isValid(null));
 
-        schema.required();
+        schema.required().positive();
         assertFalse(schema.isValid(null));
         assertFalse(schema.isValid("5"));
         assertFalse(schema.isValid(-5));

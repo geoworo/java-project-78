@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 public abstract class BaseSchema {
     protected boolean required;
-    private LinkedHashMap<String, Predicate> predicates;
+    protected LinkedHashMap<String, Predicate> predicates;
 
     public BaseSchema() {
         this.required = false;
         this.predicates = new LinkedHashMap<>();
     }
 
-    public final void addPredicate(String name, Predicate predicate) {
+    protected final void addPredicate(String name, Predicate predicate) {
         this.predicates.put(name, predicate);
     }
 

@@ -22,7 +22,7 @@ public class StringSchemaTest {
         assertFalse(sch.isValid(2));
         assertTrue(sch.isValid(testcase1));
 
-        assertFalse(sch.minLength(4).isValid("st"));
+        assertFalse(sch.minLength(2).isValid("s"));
         assertTrue(sch.isValid("stri"));
         assertTrue(sch.isValid("string"));
 

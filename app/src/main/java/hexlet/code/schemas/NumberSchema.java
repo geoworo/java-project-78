@@ -5,11 +5,7 @@ import java.util.function.Predicate;
 public final class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
-        super();
-        Predicate<Object> predicate = o -> {
-            return o instanceof Integer;
-        };
-        this.addPredicate("required", predicate);
+        this.addPredicate("required", o -> o instanceof Integer);
     }
 
     @Override
@@ -19,8 +15,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema positive() {
-        Predicate<Object> predicate = o -> (o == null) || !(o instanceof Integer) || ((int) o > 0);
-        this.addPredicate("positive", predicate);
+        this.addPredicate("positive",  o -> o == null || (int) o > 0);
         return this;
     }
 

@@ -5,9 +5,7 @@ import java.util.function.Predicate;
 public final class StringSchema extends BaseSchema {
 
     public StringSchema() {
-        super();
-        Predicate<Object> predicate = o -> !(o == null) && o instanceof String && !(o.equals(""));
-        this.addPredicate("required", predicate);
+        addPredicate("required", o -> o instanceof String && !(o.equals("")));
     }
 
     @Override
@@ -26,12 +24,7 @@ public final class StringSchema extends BaseSchema {
     }
 
     public StringSchema contains(String addedRequiredString) {
-        Predicate<Object> predicate = o -> {
-            if (!o.toString().contains(addedRequiredString)) {
-                return false;
-            }
-            return true;
-        };
+        Predicate<Object> predicate = o -> o.toString().contains(addedRequiredString);
         addPredicate("contains", predicate);
         return this;
     }

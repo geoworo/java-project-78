@@ -1,17 +1,12 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
-    private Map<String, BaseSchema> schemas;
 
     public MapSchema() {
-        super();
-        this.schemas = new HashMap<>();
-        Predicate<Object> predicate = o -> o instanceof Map<?, ?>;
-        this.addPredicate("required", predicate);
+        this.addPredicate("required", o -> o instanceof Map<?, ?>);
     }
     @Override
     public MapSchema required() {
@@ -29,12 +24,11 @@ public final class MapSchema extends BaseSchema {
     }
 
     public MapSchema shape(Map<String, BaseSchema> schema) {
-        this.schemas = schema;
         Predicate<Object> predicate = o -> {
             if (o instanceof Map) {
-                for (var key : this.schemas.keySet()) {
+                for (var key : schema.keySet()) {
                     if (((Map<?, ?>) o).containsKey(key)) {
-                        if (!(this.schemas.get(key).isValid(((Map<?, ?>) o).get(key)))) {
+                        if (!(schema.get(key).isValid(((Map<?, ?>) o).get(key)))) {
                             return false;
                         }
                     }
