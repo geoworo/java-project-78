@@ -5,12 +5,12 @@ import java.util.function.Predicate;
 public final class StringSchema extends BaseSchema {
 
     public StringSchema() {
-        addPredicate("required", o -> o instanceof String && !(o.equals("")));
+        addPredicate("isRequired", o -> o instanceof String && !(o.equals("")));
     }
 
     @Override
     public StringSchema required() {
-        this.required = true;
+        this.isRequired = true;
         return this;
     }
 

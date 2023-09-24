@@ -6,11 +6,11 @@ import java.util.function.Predicate;
 public final class MapSchema extends BaseSchema {
 
     public MapSchema() {
-        this.addPredicate("required", o -> o instanceof Map<?, ?>);
+        this.addPredicate("isRequired", o -> o instanceof Map<?, ?>);
     }
     @Override
     public MapSchema required() {
-        this.required = true;
+        this.isRequired = true;
         return this;
     }
 
@@ -25,16 +25,11 @@ public final class MapSchema extends BaseSchema {
 
     public MapSchema shape(Map<String, BaseSchema> schema) {
         Predicate<Object> predicate = o -> {
-            if (o instanceof Map) {
-                for (var key : schema.keySet()) {
-                    if (((Map<?, ?>) o).containsKey(key)) {
-                        if (!(schema.get(key).isValid(((Map<?, ?>) o).get(key)))) {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
+            return schema.keySet()
+                    .stream()
+                    .filter(k -> ((Map) o).containsKey(k))
+                    .allMatch(k -> schema.get(k).isValid(((Map) o).get(k)));
+
         };
         this.addPredicate("shape", predicate);
         return this;

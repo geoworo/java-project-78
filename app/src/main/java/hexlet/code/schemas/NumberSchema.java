@@ -5,12 +5,12 @@ import java.util.function.Predicate;
 public final class NumberSchema extends BaseSchema {
 
     public NumberSchema() {
-        this.addPredicate("required", o -> o instanceof Integer);
+        this.addPredicate("isRequired", o -> o instanceof Integer);
     }
 
     @Override
     public NumberSchema required() {
-        this.required = true;
+        this.isRequired = true;
         return this;
     }
 
