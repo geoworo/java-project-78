@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class StringSchemaTest {
     private String testcase1 = "One two three";
     private String testcase2 = "One two three four";
+    
     @Test
     public void testStringSchema() {
         Validator v = new Validator();

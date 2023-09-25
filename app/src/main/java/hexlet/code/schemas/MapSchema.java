@@ -27,7 +27,6 @@ public final class MapSchema extends BaseSchema {
         Predicate<Object> predicate = o -> {
             return schema.keySet()
                     .stream()
-                    .filter(k -> ((Map) o).containsKey(k))
                     .allMatch(k -> schema.get(k).isValid(((Map) o).get(k)));
 
         };
